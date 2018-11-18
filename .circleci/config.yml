@@ -32,7 +32,7 @@ jobs:
 
       - run:
           name: Bundle Install
-          command: bundle check || bundle install
+          command: bundle check || bundle install --path vendor/bundle
 
       # Store bundle cache
       - save_cache:
@@ -78,3 +78,12 @@ jobs:
       # Save test results for timing analysis
       - store_test_results:
           path: test_results
+  deployment:
+    docker:
+      - image: circleci/python:2.7-stretch-browsers
+    steps:
+      - checkout
+
+      - run:
+          name: Deployment
+          command: bundle -v
